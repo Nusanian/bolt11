@@ -7,7 +7,10 @@ from .types import MilliSatoshi
 
 
 def verify_hrp(hrp: str) -> Tuple[str, Optional[MilliSatoshi]]:
-    matches = match(r"ln(bcrt|bc|tbs|tb)(\w+)?", hrp)
+    # NUX: added "tn" (nusacoin testnet) and "n" (nusacoin mainnet) to the
+    # list of recognized HRP currencies. Upstream only knows Bitcoin
+    # variants (bcrt/bc/tbs/tb). Nusacoin invoices use "lntn"/"lnn".
+    matches = match(r"ln(bcrt|bc|tbs|tb|tn|n)(\w+)?", hrp)
     if matches is None:
         raise Bolt11HrpInvalidException()
     currency, amount_str = matches.groups()
