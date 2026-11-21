@@ -26,6 +26,10 @@ class TestVerifyHrp:
             ("lntb10u", "tb", 1000000),
             ("lnbc10u", "bc", 1000000),
             ("lnbcrt10u", "bcrt", 1000000),
+            # Nusacoin (regression: "nu" was missing from the HRP regex,
+            # so every lnnu invoice failed to decode).
+            ("lnnu1200n", "nu", 120000),
+            ("lntn500n", "tn", 50000),
         ],
     )
     def test_verify_hrp(self, hrp, currency, amount):
@@ -39,6 +43,7 @@ class TestVerifyHrp:
             "lntbss10u",
             "lnbcg10u",
             "lnbcrttt10u",
+            "lnnux",
         ],
     )
     def test_verify_invalid_amount(self, hrp):
